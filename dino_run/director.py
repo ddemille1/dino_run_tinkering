@@ -1,6 +1,6 @@
 #desert background from: https://opengameart.org/content/cethiels-desert-background-redux
+# cactus also from https://opengameart.org
 
-import pyray
 
 
 class Director():
@@ -11,23 +11,15 @@ class Director():
         self._background = background
 
     def start_game(self):
-        self._video_service.open_window()   
+        self._video_service.open_window() 
+        self._background.load_texture()  
+        self._cactus.load_texture()
+
         while self._video_service.is_window_open(): 
             self._get_inputs()
             self._do_updates()
             self._do_outputs()
-        self._video_service.close_window()
-
-        
-        
-
-        
-
-        while not pyray.window_should_close():
-            pyray.begin_drawing()
-            pyray.clear_background(pyray.RAYWHITE)
-
-    
+        self._video_service.close_window()    
 
     def _get_inputs(self):
         pass
@@ -37,8 +29,7 @@ class Director():
 
     def _do_outputs(self):
         self._video_service.clear_buffer()
-        self._background.draw_background()
-        self._cactus.draw_cactus()
-
+        self._background.draw_self()
+        self._cactus.draw_self()
         self._video_service.flush_buffer()
 
